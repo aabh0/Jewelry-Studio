@@ -1,0 +1,1927 @@
+[
+  {
+    "id": "soul_2",
+    "name": "Higgsfield Soul 2.0",
+    "provider_name": "Higgsfield",
+    "description": "Realistic UGC, fashion editorial and character generation",
+    "output_type": "image",
+    "aspect_ratios": [
+      "1:1",
+      "16:9",
+      "9:16",
+      "4:3",
+      "3:4",
+      "3:2",
+      "2:3"
+    ],
+    "medias": [
+      {
+        "name": "medias",
+        "type": "image",
+        "max": 1,
+        "roles": [
+          "image"
+        ],
+        "description": "roles: image x1"
+      }
+    ],
+    "parameters": [
+      {
+        "name": "quality",
+        "required": "optional",
+        "type": "string",
+        "description": "Output quality tier shown as 1.5k or 2k",
+        "default": "2k",
+        "options": [
+          "1.5k",
+          "2k"
+        ]
+      },
+      {
+        "name": "soul_id",
+        "required": "optional",
+        "type": "string",
+        "description": "Soul-ID for personalized generation. Get one from soul_list."
+      }
+    ],
+    "tags": [
+      "ugc",
+      "fashion",
+      "editorial",
+      "realistic",
+      "character",
+      "character-generation",
+      "soul",
+      "portrait",
+      "v2",
+      "unlim"
+    ],
+    "supports_unlim": true
+  },
+  {
+    "id": "soul_cast",
+    "name": "Soul Cast",
+    "provider_name": "Higgsfield",
+    "description": "Consistent cinematic character identity",
+    "output_type": "image",
+    "aspect_ratios": [
+      "16:9"
+    ],
+    "medias": [],
+    "parameters": [
+      {
+        "name": "budget",
+        "required": "optional",
+        "type": "number",
+        "description": "Generation budget (10-500)",
+        "default": 50
+      }
+    ],
+    "tags": [
+      "character",
+      "identity",
+      "consistent",
+      "cinematic",
+      "persona"
+    ],
+    "supports_unlim": null
+  },
+  {
+    "id": "soul_location",
+    "name": "Soul Location",
+    "provider_name": "Higgsfield",
+    "description": "Environment and location generation",
+    "output_type": "image",
+    "aspect_ratios": [
+      "1:1",
+      "4:3",
+      "3:4",
+      "16:9",
+      "9:16",
+      "3:2",
+      "2:3",
+      "21:9",
+      "9:21"
+    ],
+    "medias": [],
+    "parameters": [],
+    "tags": [
+      "environment",
+      "location",
+      "background",
+      "scene",
+      "landscape"
+    ],
+    "supports_unlim": null
+  },
+  {
+    "id": "nano_banana_pro",
+    "name": "Nano Banana Pro",
+    "provider_name": "Google",
+    "description": "Ultimate quality, text and diagrams",
+    "output_type": "image",
+    "aspect_ratios": [
+      "1:1",
+      "3:2",
+      "2:3",
+      "4:3",
+      "3:4",
+      "4:5",
+      "5:4",
+      "9:16",
+      "16:9",
+      "21:9"
+    ],
+    "medias": [
+      {
+        "name": "medias",
+        "type": "image",
+        "roles": [
+          "image_references"
+        ]
+      }
+    ],
+    "parameters": [
+      {
+        "name": "resolution",
+        "required": "optional",
+        "type": "string",
+        "description": "Output resolution.",
+        "options": [
+          "1k",
+          "2k",
+          "4k"
+        ],
+        "default": "2k"
+      }
+    ],
+    "tags": [
+      "quality",
+      "text-rendering",
+      "diagrams",
+      "photorealistic",
+      "versatile",
+      "4k",
+      "text-to-image",
+      "image-to-image",
+      "unlim"
+    ],
+    "supports_unlim": true
+  },
+  {
+    "id": "nano_banana_2",
+    "name": "Nano Banana 2",
+    "provider_name": "Google",
+    "description": "Fast, next-gen high-quality images",
+    "output_type": "image",
+    "aspect_ratios": [
+      "auto",
+      "1:1",
+      "3:2",
+      "2:3",
+      "4:3",
+      "3:4",
+      "4:5",
+      "5:4",
+      "9:16",
+      "16:9",
+      "21:9"
+    ],
+    "medias": [
+      {
+        "name": "medias",
+        "type": "image",
+        "roles": [
+          "image_references",
+          "mask"
+        ]
+      }
+    ],
+    "parameters": [
+      {
+        "name": "resolution",
+        "required": "optional",
+        "type": "string",
+        "description": "Output resolution.",
+        "options": [
+          "1k",
+          "2k",
+          "4k"
+        ],
+        "default": "1k"
+      },
+      {
+        "name": "is_inpaint",
+        "required": "optional",
+        "type": "bool",
+        "description": "Whether to restrict the edit to the supplied mask.",
+        "default": false
+      }
+    ],
+    "tags": [
+      "fast",
+      "high-quality",
+      "photorealistic",
+      "versatile",
+      "4k",
+      "text-to-image",
+      "image-to-image",
+      "unlim"
+    ],
+    "supports_unlim": true
+  },
+  {
+    "id": "seedream_v4_5",
+    "name": "Seedream 4.5",
+    "provider_name": "Bytedance",
+    "description": "4K output, precise control, transformations",
+    "output_type": "image",
+    "aspect_ratios": [
+      "1:1",
+      "4:3",
+      "16:9",
+      "3:2",
+      "21:9",
+      "3:4",
+      "9:16",
+      "2:3"
+    ],
+    "medias": [
+      {
+        "name": "medias",
+        "type": "image",
+        "roles": [
+          "image_references"
+        ]
+      }
+    ],
+    "parameters": [
+      {
+        "name": "quality",
+        "required": "optional",
+        "type": "string",
+        "description": "Output quality tier. 'basic' renders up to 4K; 'high' renders up to ~6K.",
+        "options": [
+          "basic",
+          "high"
+        ],
+        "default": "basic"
+      }
+    ],
+    "tags": [
+      "4k",
+      "high-resolution",
+      "precise",
+      "transformations",
+      "editing",
+      "control",
+      "unlim"
+    ],
+    "supports_unlim": true
+  },
+  {
+    "id": "flux_3_image",
+    "name": "FLUX 3 Image",
+    "provider_name": "Black Forest Labs",
+    "description": "FLUX 3 image generation and editing with up to ten reference images",
+    "output_type": "image",
+    "aspect_ratios": [
+      "auto",
+      "21:9",
+      "2:1",
+      "16:9",
+      "3:2",
+      "7:5",
+      "4:3",
+      "5:4",
+      "1:1",
+      "4:5",
+      "3:4",
+      "5:7",
+      "2:3",
+      "9:16",
+      "1:2"
+    ],
+    "medias": [
+      {
+        "name": "medias",
+        "type": "image",
+        "roles": [
+          "image_references"
+        ]
+      }
+    ],
+    "parameters": [
+      {
+        "name": "resolution",
+        "required": "optional",
+        "type": "string",
+        "description": "Output resolution class. Exact pixel dimensions depend on aspect ratio.",
+        "options": [
+          "768sq",
+          "1k",
+          "1.5k",
+          "2k",
+          "4k"
+        ],
+        "default": "1k"
+      },
+      {
+        "name": "batch_size",
+        "required": "optional",
+        "type": "number",
+        "description": "Number of output images to generate.",
+        "min": 1,
+        "max": 4,
+        "default": 1
+      },
+      {
+        "name": "folder_id",
+        "required": "optional",
+        "type": "string",
+        "description": "Optional folder to place generated images in.",
+        "nullable": true
+      }
+    ],
+    "tags": [
+      "text-to-image",
+      "image-to-image",
+      "editing",
+      "multi-reference",
+      "4k"
+    ],
+    "supports_unlim": null
+  },
+  {
+    "id": "flux_3_video",
+    "name": "FLUX 3 Video",
+    "provider_name": "Black Forest Labs",
+    "description": "Text-to-video, multi-frame image-to-video, and video continuation with synchronized audio",
+    "output_type": "video",
+    "aspect_ratios": [
+      "auto",
+      "21:9",
+      "2:1",
+      "16:9",
+      "4:3",
+      "1:1",
+      "3:4",
+      "9:16"
+    ],
+    "medias": [
+      {
+        "name": "medias",
+        "type": "image",
+        "roles": [
+          "start_image",
+          "end_image",
+          "image_references",
+          "video_references"
+        ]
+      }
+    ],
+    "parameters": [
+      {
+        "name": "duration",
+        "required": "optional",
+        "type": "number",
+        "description": "Duration in whole seconds (5-20).",
+        "min": 5,
+        "max": 20,
+        "default": 5
+      },
+      {
+        "name": "resolution",
+        "required": "optional",
+        "type": "string",
+        "description": "Output resolution: 720p or 1080p.",
+        "options": [
+          "720p",
+          "1080p"
+        ],
+        "default": "720p"
+      },
+      {
+        "name": "generate_audio",
+        "required": "optional",
+        "type": "bool",
+        "description": "Generate synchronized speech, effects, and ambience.",
+        "default": true
+      }
+    ],
+    "tags": [
+      "text-to-video",
+      "image-to-video",
+      "video-continuation",
+      "audio",
+      "start-frame",
+      "end-frame",
+      "storyboard",
+      "1080p"
+    ],
+    "supports_unlim": null
+  },
+  {
+    "id": "flux_kontext",
+    "name": "Flux Kontext",
+    "provider_name": "Black Forest Labs",
+    "description": "Context-aware editing and style transfer",
+    "output_type": "image",
+    "aspect_ratios": [
+      "1:1",
+      "4:3",
+      "3:4",
+      "16:9",
+      "9:16"
+    ],
+    "medias": [
+      {
+        "name": "medias",
+        "type": "image",
+        "roles": [
+          "image_references"
+        ]
+      }
+    ],
+    "parameters": [],
+    "tags": [
+      "editing",
+      "style-transfer",
+      "context-aware",
+      "typography",
+      "remix"
+    ],
+    "supports_unlim": null
+  },
+  {
+    "id": "kling_omni_image",
+    "name": "Kling O1 Image",
+    "provider_name": "Kling",
+    "description": "Versatile photorealistic generation",
+    "output_type": "image",
+    "aspect_ratios": [
+      "1:1",
+      "auto",
+      "16:9",
+      "9:16",
+      "4:3",
+      "3:4",
+      "3:2",
+      "2:3",
+      "21:9"
+    ],
+    "medias": [
+      {
+        "name": "medias",
+        "type": "image",
+        "roles": [
+          "image_references"
+        ]
+      }
+    ],
+    "parameters": [
+      {
+        "name": "resolution",
+        "required": "optional",
+        "type": "string",
+        "description": "Output resolution.",
+        "options": [
+          "1k",
+          "2k"
+        ],
+        "default": "1k"
+      }
+    ],
+    "tags": [
+      "photorealistic",
+      "versatile",
+      "wide-aspect-ratio",
+      "realistic",
+      "unlim"
+    ],
+    "supports_unlim": true
+  },
+  {
+    "id": "gpt_image_2_5",
+    "name": "GPT Image 2.5",
+    "provider_name": "OpenAI",
+    "description": "GPT Image 2.5 generation and editing with Flare and Sunburst variants",
+    "output_type": "image",
+    "aspect_ratios": [
+      "auto",
+      "1:1",
+      "3:2",
+      "2:3",
+      "4:3",
+      "3:4",
+      "16:9",
+      "9:16",
+      "21:9",
+      "27:16",
+      "16:27",
+      "9:8",
+      "8:9",
+      "4:5",
+      "5:4"
+    ],
+    "medias": [
+      {
+        "name": "medias",
+        "type": "image",
+        "roles": [
+          "image_references"
+        ]
+      }
+    ],
+    "parameters": [
+      {
+        "name": "variant",
+        "required": "optional",
+        "type": "string",
+        "description": "Model variant.",
+        "options": [
+          "flare",
+          "sunburst"
+        ],
+        "default": "flare"
+      },
+      {
+        "name": "quality",
+        "required": "optional",
+        "type": "string",
+        "description": "Rendering quality.",
+        "options": [
+          "low",
+          "medium",
+          "high",
+          "xhigh",
+          "max"
+        ],
+        "default": "low"
+      },
+      {
+        "name": "resolution",
+        "required": "optional",
+        "type": "string",
+        "description": "Output resolution.",
+        "options": [
+          "1k",
+          "2k",
+          "4k"
+        ],
+        "default": "1k"
+      },
+      {
+        "name": "background",
+        "required": "optional",
+        "type": "string",
+        "description": "Background handling. Omit to keep the model default.",
+        "options": [
+          "auto",
+          "opaque",
+          "transparent"
+        ],
+        "nullable": true
+      }
+    ],
+    "tags": [
+      "image-generation",
+      "editing",
+      "reference-images",
+      "4k",
+      "text-rendering"
+    ],
+    "supports_unlim": null
+  },
+  {
+    "id": "seedream_v5_pro",
+    "name": "Seedream 5.0 Pro",
+    "provider_name": "Bytedance",
+    "description": "Pro-tier visual reasoning, instruction-based editing, up to 2K",
+    "output_type": "image",
+    "aspect_ratios": [
+      "1:1",
+      "4:3",
+      "3:4",
+      "16:9",
+      "9:16",
+      "3:2",
+      "2:3",
+      "21:9"
+    ],
+    "medias": [
+      {
+        "name": "medias",
+        "type": "image",
+        "roles": [
+          "image_references"
+        ]
+      }
+    ],
+    "parameters": [
+      {
+        "name": "resolution",
+        "required": "optional",
+        "type": "string",
+        "description": "Output resolution tier.",
+        "options": [
+          "1k",
+          "1.5k",
+          "2k"
+        ],
+        "default": "2k"
+      },
+      {
+        "name": "width",
+        "required": "optional",
+        "type": "number",
+        "description": "Optional output width stored with the generation.",
+        "min": 1,
+        "nullable": true
+      },
+      {
+        "name": "height",
+        "required": "optional",
+        "type": "number",
+        "description": "Optional output height stored with the generation.",
+        "min": 1,
+        "nullable": true
+      },
+      {
+        "name": "remove_bg",
+        "required": "optional",
+        "type": "bool",
+        "description": "Remove the background from the generated image.",
+        "default": false
+      },
+      {
+        "name": "is_inpaint",
+        "required": "optional",
+        "type": "bool",
+        "description": "Treat the request as an inpaint/edit of the reference image(s) instead of a fresh generation.",
+        "default": false
+      }
+    ],
+    "tags": [
+      "editing",
+      "instruction",
+      "reasoning",
+      "pro",
+      "2k",
+      "unlim"
+    ],
+    "supports_unlim": true
+  },
+  {
+    "id": "grok_video_v15",
+    "name": "Grok Video 1.5",
+    "provider_name": "xAI",
+    "description": "Multimodal video generation from text, a start image, or image and audio references",
+    "output_type": "video",
+    "aspect_ratios": [],
+    "medias": [
+      {
+        "name": "medias",
+        "type": "image",
+        "roles": [
+          "start_image",
+          "image_references",
+          "audio_references"
+        ]
+      }
+    ],
+    "parameters": [
+      {
+        "name": "resolution",
+        "required": "optional",
+        "type": "string",
+        "description": "Output resolution.",
+        "options": [
+          "480p",
+          "720p",
+          "1080p"
+        ],
+        "default": "720p"
+      },
+      {
+        "name": "duration",
+        "required": "optional",
+        "type": "number",
+        "description": "Duration in seconds (2-15).",
+        "min": 2,
+        "max": 15,
+        "default": 5
+      }
+    ],
+    "tags": [
+      "audio",
+      "cinematic",
+      "text-to-video",
+      "image-to-video",
+      "reference",
+      "audio-reference",
+      "start-frame",
+      "physics",
+      "camera-motion",
+      "preview"
+    ],
+    "supports_unlim": null
+  },
+  {
+    "id": "sonilo_music",
+    "name": "Sonilo Music",
+    "provider_name": "FAL",
+    "description": "Text-to-music generation with controllable duration. Game pipeline only.",
+    "output_type": "audio",
+    "aspect_ratios": [],
+    "medias": [],
+    "parameters": [
+      {
+        "name": "duration",
+        "required": "required",
+        "type": "number",
+        "description": "Duration in seconds (e.g. 8)."
+      }
+    ],
+    "tags": [
+      "audio",
+      "music",
+      "text-to-music",
+      "fal",
+      "sonilo"
+    ],
+    "supports_unlim": null
+  },
+  {
+    "id": "text2speech_v2",
+    "name": "Text to Speech V2",
+    "provider_name": "Higgsfield",
+    "description": "Text-to-speech with a selectable engine (ElevenLabs, MiniMax, Seed Speech, Vibe Voice, Cozy Voice) via the variant param; preset or reference-element voices (voice_type + voice_id).",
+    "output_type": "audio",
+    "aspect_ratios": [],
+    "medias": [],
+    "parameters": [
+      {
+        "name": "variant",
+        "required": "required",
+        "type": "string",
+        "description": "Text-to-speech engine.",
+        "options": [
+          "elevenlabs",
+          "minimax",
+          "seed_speech",
+          "vibe_voice",
+          "cozy_voice"
+        ]
+      },
+      {
+        "name": "voice_type",
+        "required": "required",
+        "type": "string",
+        "description": "Whether voice_id is a built-in preset voice ('preset') or a workspace reference element ('element').",
+        "options": [
+          "preset",
+          "element"
+        ]
+      },
+      {
+        "name": "voice_id",
+        "required": "required",
+        "type": "string",
+        "description": "Voice id: a preset voice id when voice_type='preset', or a reference element id when voice_type='element'."
+      }
+    ],
+    "tags": [
+      "audio",
+      "speech",
+      "tts",
+      "text-to-speech",
+      "voice",
+      "preset",
+      "reference-element",
+      "elevenlabs",
+      "minimax",
+      "seed_speech",
+      "vibe_voice",
+      "cozy_voice",
+      "unlim"
+    ],
+    "supports_unlim": true
+  },
+  {
+    "id": "image_background_remover",
+    "name": "Image Background Remover",
+    "provider_name": "",
+    "description": "",
+    "output_type": "image",
+    "aspect_ratios": [],
+    "medias": [
+      {
+        "name": "medias",
+        "type": "image",
+        "roles": [
+          "image_references"
+        ]
+      }
+    ],
+    "parameters": [],
+    "tags": [],
+    "supports_unlim": null
+  },
+  {
+    "id": "sync_so",
+    "name": "Sync Lipsync 3",
+    "provider_name": "",
+    "description": "",
+    "output_type": "video",
+    "aspect_ratios": [],
+    "medias": [
+      {
+        "name": "medias",
+        "type": "image",
+        "roles": [
+          "input_video",
+          "input_audio"
+        ]
+      }
+    ],
+    "parameters": [
+      {
+        "name": "sync_mode",
+        "required": "optional",
+        "type": "string",
+        "description": "How to reconcile a duration mismatch between the video and the audio: 'bounce' ping-pongs the video, 'loop' repeats it, 'cut_off' truncates to the shorter input, 'silence' pads the audio, 'remap' retimes the video.",
+        "options": [
+          "bounce",
+          "loop",
+          "cut_off",
+          "silence",
+          "remap"
+        ],
+        "default": "bounce"
+      },
+      {
+        "name": "folder_id",
+        "required": "optional",
+        "type": "string",
+        "description": "Optional folder to place the generated output in.",
+        "nullable": true
+      }
+    ],
+    "tags": [],
+    "supports_unlim": null
+  },
+  {
+    "id": "outpaint",
+    "name": "Outpaint",
+    "provider_name": "",
+    "description": "",
+    "output_type": "image",
+    "aspect_ratios": [
+      "auto",
+      "1:1",
+      "3:2",
+      "2:3",
+      "4:3",
+      "3:4",
+      "4:5",
+      "5:4",
+      "9:16",
+      "16:9",
+      "21:9"
+    ],
+    "medias": [
+      {
+        "name": "medias",
+        "type": "image",
+        "roles": [
+          "image_references"
+        ]
+      }
+    ],
+    "parameters": [
+      {
+        "name": "folder_id",
+        "required": "optional",
+        "type": "string",
+        "description": "Optional folder placement for the generated image.",
+        "nullable": true
+      }
+    ],
+    "tags": [],
+    "supports_unlim": null
+  },
+  {
+    "id": "minimax_h3",
+    "name": "MiniMax H3",
+    "provider_name": "MiniMax",
+    "description": "Multimodal video generation with keyframes or image/video/audio references",
+    "output_type": "video",
+    "aspect_ratios": [
+      "auto",
+      "21:9",
+      "16:9",
+      "4:3",
+      "1:1",
+      "3:4",
+      "9:16"
+    ],
+    "medias": [
+      {
+        "name": "medias",
+        "type": "image",
+        "roles": [
+          "start_image",
+          "end_image",
+          "image_references",
+          "video_references",
+          "audio_references"
+        ]
+      }
+    ],
+    "parameters": [
+      {
+        "name": "duration",
+        "required": "optional",
+        "type": "number",
+        "description": "Duration in seconds (4-15).",
+        "min": 4,
+        "max": 15,
+        "default": 5
+      },
+      {
+        "name": "resolution",
+        "required": "optional",
+        "type": "string",
+        "description": "Output resolution.",
+        "options": [
+          "2K"
+        ],
+        "default": "2K"
+      },
+      {
+        "name": "batch_size",
+        "required": "optional",
+        "type": "number",
+        "description": "Number of videos to generate (1-4).",
+        "min": 1,
+        "max": 4,
+        "default": 1
+      },
+      {
+        "name": "folder_id",
+        "required": "optional",
+        "type": "string",
+        "description": "Optional folder to place the generated video in.",
+        "nullable": true
+      }
+    ],
+    "tags": [
+      "text-to-video",
+      "image-to-video",
+      "reference",
+      "audio-reference",
+      "video-reference",
+      "start-frame",
+      "end-frame",
+      "2k"
+    ],
+    "supports_unlim": null
+  },
+  {
+    "id": "seedance_2_0",
+    "name": "Seedance 2.0",
+    "provider_name": "Bytedance",
+    "description": "Reference-driven video with image/video/audio reference inputs, consistent identity, multi-SKU; optional generate_audio for native audio",
+    "output_type": "video",
+    "aspect_ratios": [
+      "auto",
+      "16:9",
+      "9:16",
+      "4:3",
+      "3:4",
+      "1:1",
+      "21:9"
+    ],
+    "medias": [
+      {
+        "name": "medias",
+        "type": "image",
+        "roles": [
+          "start_image",
+          "end_image",
+          "image_references",
+          "video_references",
+          "audio_references"
+        ]
+      }
+    ],
+    "parameters": [
+      {
+        "name": "duration",
+        "required": "optional",
+        "type": "number",
+        "description": "Duration in seconds (4-15).",
+        "min": 4,
+        "max": 15,
+        "default": 5
+      },
+      {
+        "name": "resolution",
+        "required": "optional",
+        "type": "string",
+        "description": "Output resolution. 4k/1080p require mode='std'; mode='fast' supports 480p/720p only.",
+        "options": [
+          "480p",
+          "720p",
+          "1080p",
+          "4k"
+        ],
+        "default": "720p"
+      },
+      {
+        "name": "mode",
+        "required": "optional",
+        "type": "string",
+        "description": "'std' = higher quality, supports 480p/720p/1080p/4k; 'fast' = cheaper/faster, supports 480p/720p only.",
+        "options": [
+          "std",
+          "fast"
+        ],
+        "default": "std"
+      },
+      {
+        "name": "bitrate_mode",
+        "required": "optional",
+        "type": "string",
+        "description": "'standard' = normal output bitrate; 'high' = higher bitrate output.",
+        "options": [
+          "standard",
+          "high"
+        ],
+        "default": "standard"
+      },
+      {
+        "name": "genre",
+        "required": "optional",
+        "type": "string",
+        "description": "Cinematic genre hint.",
+        "options": [
+          "auto",
+          "action",
+          "horror",
+          "comedy",
+          "noir",
+          "drama",
+          "epic"
+        ],
+        "default": "auto"
+      },
+      {
+        "name": "generate_audio",
+        "required": "optional",
+        "type": "bool",
+        "description": "Generate native audio for the video. Set false for a silent video. Independent of audio_references.",
+        "default": true
+      }
+    ],
+    "tags": [
+      "reference",
+      "identity",
+      "consistent",
+      "product",
+      "multi-sku",
+      "e-commerce",
+      "audio",
+      "audio-reference",
+      "video-reference",
+      "start-frame",
+      "end-frame",
+      "4k",
+      "high-resolution",
+      "unlim"
+    ],
+    "supports_unlim": true
+  },
+  {
+    "id": "seedance_2_5",
+    "name": "Seedance 2.5",
+    "provider_name": "Bytedance",
+    "description": "Seedance 2.5 text-to-video, multimodal omni-reference generation, video edit, and video extension",
+    "output_type": "video",
+    "aspect_ratios": [
+      "auto",
+      "21:9",
+      "16:9",
+      "4:3",
+      "1:1",
+      "3:4",
+      "9:16"
+    ],
+    "medias": [
+      {
+        "name": "medias",
+        "type": "image",
+        "roles": [
+          "start_image",
+          "end_image",
+          "image_references",
+          "video_references",
+          "audio_references"
+        ]
+      }
+    ],
+    "parameters": [
+      {
+        "name": "mode",
+        "required": "optional",
+        "type": "string",
+        "description": "Generation mode: 't2v' for prompt-only generation, 'omni_reference' for image, video, or audio references, 'video_edit' to edit one reference video (billed by that video's duration; 'duration' and 'aspect_ratio' are ignored), or 'video_extension' to extend a reference video ('aspect_ratio' is ignored — the output follows the extended video).",
+        "options": [
+          "t2v",
+          "omni_reference",
+          "video_edit",
+          "video_extension"
+        ],
+        "default": "t2v"
+      },
+      {
+        "name": "duration",
+        "required": "optional",
+        "type": "number",
+        "description": "Duration in seconds (4-30).",
+        "min": 4,
+        "max": 30,
+        "default": 5
+      },
+      {
+        "name": "resolution",
+        "required": "optional",
+        "type": "string",
+        "description": "Output resolution: 480p, 720p, or 1080p.",
+        "options": [
+          "480p",
+          "720p",
+          "1080p"
+        ],
+        "default": "720p"
+      },
+      {
+        "name": "generate_audio",
+        "required": "optional",
+        "type": "bool",
+        "description": "Generate audio for the output video.",
+        "default": true
+      },
+      {
+        "name": "bitrate_mode",
+        "required": "optional",
+        "type": "string",
+        "description": "'standard' = normal output bitrate; 'high' = higher bitrate output.",
+        "options": [
+          "standard",
+          "high"
+        ],
+        "default": "standard"
+      },
+      {
+        "name": "extension_mode",
+        "required": "optional",
+        "type": "string",
+        "description": "Extension direction; required for mode 'video_extension' and not allowed otherwise.",
+        "options": [
+          "backward",
+          "forward"
+        ],
+        "nullable": true
+      },
+      {
+        "name": "draft",
+        "required": "optional",
+        "type": "bool",
+        "description": "Generate a 480p draft that can be finalized within seven days.",
+        "default": false
+      },
+      {
+        "name": "draft_job_id",
+        "required": "optional",
+        "type": "string",
+        "description": "Completed draft job to finalize at 1080p.",
+        "nullable": true
+      }
+    ],
+    "tags": [
+      "text-to-video",
+      "reference",
+      "identity",
+      "audio-reference",
+      "video-reference",
+      "video-edit",
+      "video-extension",
+      "480p",
+      "720p",
+      "1080p"
+    ],
+    "supports_unlim": null
+  },
+  {
+    "id": "cinematic_studio_video_4_0",
+    "name": "Cinema Studio 4.0",
+    "provider_name": "Higgsfield",
+    "description": "Cinema-grade video generation with automatic prompt direction and camera, lighting, pacing, genre, era, and color controls",
+    "output_type": "video",
+    "aspect_ratios": [
+      "auto",
+      "21:9",
+      "16:9",
+      "4:3",
+      "1:1",
+      "3:4",
+      "9:16"
+    ],
+    "medias": [
+      {
+        "name": "medias",
+        "type": "image",
+        "roles": [
+          "start_image",
+          "end_image",
+          "image_references",
+          "video_references",
+          "audio_references"
+        ]
+      }
+    ],
+    "parameters": [
+      {
+        "name": "mode",
+        "required": "optional",
+        "type": "string",
+        "description": "Generation mode: 't2v' for prompt-only generation, 'omni_reference' for image, video, or audio references, 'video_edit' to edit one reference video (billed by that video's duration; 'duration' and 'aspect_ratio' are ignored), or 'video_extension' to extend a reference video ('aspect_ratio' is ignored — the output follows the extended video).",
+        "options": [
+          "t2v",
+          "omni_reference",
+          "video_edit",
+          "video_extension"
+        ],
+        "default": "t2v"
+      },
+      {
+        "name": "duration",
+        "required": "optional",
+        "type": "number",
+        "description": "Duration in seconds (4-30).",
+        "min": 4,
+        "max": 30,
+        "default": 5
+      },
+      {
+        "name": "resolution",
+        "required": "optional",
+        "type": "string",
+        "description": "Output resolution: 480p, 720p, or 1080p.",
+        "options": [
+          "480p",
+          "720p",
+          "1080p"
+        ],
+        "default": "720p"
+      },
+      {
+        "name": "generate_audio",
+        "required": "optional",
+        "type": "bool",
+        "description": "Generate audio for the output video.",
+        "default": true
+      },
+      {
+        "name": "bitrate_mode",
+        "required": "optional",
+        "type": "string",
+        "description": "'standard' = normal output bitrate; 'high' = higher bitrate output.",
+        "options": [
+          "standard",
+          "high"
+        ],
+        "default": "standard"
+      },
+      {
+        "name": "extension_mode",
+        "required": "optional",
+        "type": "string",
+        "description": "Extension direction; required for mode 'video_extension' and not allowed otherwise.",
+        "options": [
+          "backward",
+          "forward"
+        ],
+        "nullable": true
+      },
+      {
+        "name": "era_id",
+        "required": "optional",
+        "type": "string",
+        "description": "Cinema Studio 4.0 creative-control id selecting the film era.",
+        "nullable": true
+      },
+      {
+        "name": "camera_model_id",
+        "required": "optional",
+        "type": "string",
+        "description": "Cinema Studio 4.0 creative-control id selecting the camera body.",
+        "nullable": true
+      },
+      {
+        "name": "camera_lens_id",
+        "required": "optional",
+        "type": "string",
+        "description": "Cinema Studio 4.0 creative-control id selecting the lens.",
+        "nullable": true
+      },
+      {
+        "name": "camera_aperture_id",
+        "required": "optional",
+        "type": "string",
+        "description": "Cinema Studio 4.0 creative-control id selecting the aperture.",
+        "nullable": true
+      },
+      {
+        "name": "pacing_id",
+        "required": "optional",
+        "type": "string",
+        "description": "Cinema Studio 4.0 creative-control id selecting montage pacing.",
+        "nullable": true
+      },
+      {
+        "name": "genre_id",
+        "required": "optional",
+        "type": "string",
+        "description": "Cinema Studio 4.0 creative-control id selecting the film genre.",
+        "nullable": true
+      },
+      {
+        "name": "light",
+        "required": "optional",
+        "type": "string",
+        "description": "Lighting source: 'preset' for a Cinema Studio scheme, 'user' for the caller's saved lighting preset, or 'custom' for a placed rig.",
+        "options": [
+          "preset",
+          "custom",
+          "user"
+        ],
+        "nullable": true
+      },
+      {
+        "name": "light_id",
+        "required": "optional",
+        "type": "string",
+        "description": "Lighting id. Use a Cinema Studio control id with light='preset', a saved lighting-preset id with light='user', or 'custom' for a placed rig.",
+        "nullable": true
+      },
+      {
+        "name": "light_custom",
+        "required": "optional",
+        "type": "string_array",
+        "description": "Ordered custom lighting rig. The first source is the key light.",
+        "nullable": true
+      },
+      {
+        "name": "color_palette",
+        "required": "optional",
+        "type": "string",
+        "description": "Color palette selection with type 'preset' or 'user' and its id.",
+        "nullable": true
+      }
+    ],
+    "tags": [
+      "cinematic",
+      "director",
+      "text-to-video",
+      "reference",
+      "audio-reference",
+      "video-reference",
+      "video-edit",
+      "video-extension",
+      "480p",
+      "720p"
+    ],
+    "supports_unlim": null
+  },
+  {
+    "id": "reframe",
+    "name": "Reframe",
+    "provider_name": "",
+    "description": "",
+    "output_type": "video",
+    "aspect_ratios": [
+      "21:9",
+      "16:9",
+      "4:3",
+      "1:1",
+      "3:4",
+      "9:16"
+    ],
+    "medias": [
+      {
+        "name": "medias",
+        "type": "image",
+        "roles": [
+          "video_references",
+          "start_image",
+          "image_references"
+        ]
+      }
+    ],
+    "parameters": [
+      {
+        "name": "resolution",
+        "required": "optional",
+        "type": "string",
+        "description": "Output resolution.",
+        "options": [
+          "480p",
+          "720p",
+          "1080p"
+        ],
+        "default": "720p"
+      },
+      {
+        "name": "duration",
+        "required": "optional",
+        "type": "number",
+        "description": "Duration of the source video in seconds (used for pricing).",
+        "nullable": true
+      }
+    ],
+    "tags": [],
+    "supports_unlim": null
+  },
+  {
+    "id": "topaz_image",
+    "name": "Topaz",
+    "provider_name": "",
+    "description": "",
+    "output_type": "image",
+    "aspect_ratios": [],
+    "medias": [
+      {
+        "name": "medias",
+        "type": "image",
+        "roles": [
+          "image_references"
+        ]
+      }
+    ],
+    "parameters": [
+      {
+        "name": "output_width",
+        "required": "required",
+        "type": "number",
+        "description": "Target output width in pixels.",
+        "min": 1
+      },
+      {
+        "name": "output_height",
+        "required": "required",
+        "type": "number",
+        "description": "Target output height in pixels.",
+        "min": 1
+      },
+      {
+        "name": "face_enhancement",
+        "required": "optional",
+        "type": "bool",
+        "description": "Enable dedicated face enhancement.",
+        "default": false
+      },
+      {
+        "name": "face_enhancement_creativity",
+        "required": "optional",
+        "type": "number",
+        "description": "Face enhancement creativity (0-1). Applies when face_enhancement is enabled.",
+        "min": 0,
+        "max": 1,
+        "default": 0
+      },
+      {
+        "name": "face_enhancement_strength",
+        "required": "optional",
+        "type": "number",
+        "description": "Face enhancement strength (0-1). Applies when face_enhancement is enabled.",
+        "min": 0,
+        "max": 1,
+        "default": 0
+      },
+      {
+        "name": "variant",
+        "required": "optional",
+        "type": "string",
+        "description": "Topaz enhancement model.",
+        "options": [
+          "Standard V2",
+          "Low Resolution V2",
+          "CGI",
+          "High Fidelity V2",
+          "Text Refine"
+        ],
+        "default": "Standard V2"
+      },
+      {
+        "name": "sharpen",
+        "required": "optional",
+        "type": "number",
+        "description": "Sharpening amount (0-1).",
+        "min": 0,
+        "max": 1,
+        "default": 0
+      },
+      {
+        "name": "denoise",
+        "required": "optional",
+        "type": "number",
+        "description": "Denoising amount (0-1).",
+        "min": 0,
+        "max": 1,
+        "default": 0
+      },
+      {
+        "name": "folder_id",
+        "required": "optional",
+        "type": "string",
+        "description": "Destination folder id.",
+        "nullable": true
+      }
+    ],
+    "tags": [],
+    "supports_unlim": null
+  },
+  {
+    "id": "video_upscale",
+    "name": "Video Upscale",
+    "provider_name": "",
+    "description": "",
+    "output_type": "video",
+    "aspect_ratios": [],
+    "medias": [
+      {
+        "name": "medias",
+        "type": "image",
+        "roles": [
+          "input_video"
+        ]
+      }
+    ],
+    "parameters": [
+      {
+        "name": "duration",
+        "required": "optional",
+        "type": "number",
+        "description": "Duration of the source video in seconds. Optional; derived from the video metadata when omitted.",
+        "min": 0,
+        "nullable": true
+      },
+      {
+        "name": "folder_id",
+        "required": "optional",
+        "type": "string",
+        "description": "Optional folder to place the generated output in.",
+        "nullable": true
+      }
+    ],
+    "tags": [],
+    "supports_unlim": null
+  },
+  {
+    "id": "kling3_0",
+    "name": "Kling v3.0",
+    "provider_name": "Kling",
+    "description": "Multi-shot, audio sync, motion transfer",
+    "output_type": "video",
+    "aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "medias": [
+      {
+        "name": "medias",
+        "type": "image",
+        "roles": [
+          "start_image",
+          "end_image"
+        ]
+      }
+    ],
+    "parameters": [
+      {
+        "name": "duration",
+        "required": "optional",
+        "type": "number",
+        "description": "Duration in seconds (3-15).",
+        "min": 3,
+        "max": 15,
+        "default": 5
+      },
+      {
+        "name": "mode",
+        "required": "optional",
+        "type": "string",
+        "description": "Generation mode: 'std' (standard), 'pro' (higher quality), or '4k' (4K resolution).",
+        "options": [
+          "std",
+          "pro",
+          "4k"
+        ],
+        "default": "std"
+      },
+      {
+        "name": "sound",
+        "required": "optional",
+        "type": "string",
+        "description": "Generate audio. Use 'off' for silent video and lower credits.",
+        "options": [
+          "on",
+          "off"
+        ],
+        "default": "on"
+      }
+    ],
+    "tags": [
+      "multi-shot",
+      "audio",
+      "motion-transfer",
+      "cinematic",
+      "advanced",
+      "unlim"
+    ],
+    "supports_unlim": true
+  },
+  {
+    "id": "kling_o3_image_reference",
+    "name": "Kling 3.0 Omni",
+    "provider_name": "Kling",
+    "description": "Generate video from text and up to seven reference images",
+    "output_type": "video",
+    "aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "medias": [
+      {
+        "name": "medias",
+        "type": "image",
+        "roles": [
+          "image_references"
+        ]
+      }
+    ],
+    "parameters": [
+      {
+        "name": "duration",
+        "required": "optional",
+        "type": "number",
+        "description": "Duration in seconds (3-15).",
+        "min": 3,
+        "max": 15,
+        "default": 5
+      },
+      {
+        "name": "mode",
+        "required": "optional",
+        "type": "string",
+        "description": "Output quality: Standard, Pro, or 4K.",
+        "options": [
+          "std",
+          "pro",
+          "4k"
+        ],
+        "default": "std"
+      },
+      {
+        "name": "sound",
+        "required": "optional",
+        "type": "string",
+        "description": "Generate audio or a silent video.",
+        "options": [
+          "on",
+          "off"
+        ],
+        "default": "on"
+      },
+      {
+        "name": "multi_shots",
+        "required": "optional",
+        "type": "bool",
+        "description": "Generate a sequence of multiple shots.",
+        "default": false
+      },
+      {
+        "name": "multi_prompt",
+        "required": "optional",
+        "type": "string_array",
+        "description": "Ordered shot prompts and durations; required when multi_shots is true."
+      }
+    ],
+    "tags": [
+      "multi-shot",
+      "audio",
+      "4k"
+    ],
+    "supports_unlim": null
+  },
+  {
+    "id": "kling_o3_flf",
+    "name": "Kling 3.0 Omni (Frames)",
+    "provider_name": "Kling",
+    "description": "Generate video from text or a first frame and optional last frame",
+    "output_type": "video",
+    "aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "medias": [
+      {
+        "name": "medias",
+        "type": "image",
+        "roles": [
+          "start_image",
+          "end_image"
+        ]
+      }
+    ],
+    "parameters": [
+      {
+        "name": "duration",
+        "required": "optional",
+        "type": "number",
+        "description": "Duration in seconds (3-15).",
+        "min": 3,
+        "max": 15,
+        "default": 5
+      },
+      {
+        "name": "mode",
+        "required": "optional",
+        "type": "string",
+        "description": "Output quality: Standard, Pro, or 4K.",
+        "options": [
+          "std",
+          "pro",
+          "4k"
+        ],
+        "default": "std"
+      },
+      {
+        "name": "sound",
+        "required": "optional",
+        "type": "string",
+        "description": "Generate audio or a silent video.",
+        "options": [
+          "on",
+          "off"
+        ],
+        "default": "on"
+      },
+      {
+        "name": "multi_shots",
+        "required": "optional",
+        "type": "bool",
+        "description": "Generate a sequence of multiple shots.",
+        "default": false
+      },
+      {
+        "name": "multi_prompt",
+        "required": "optional",
+        "type": "string_array",
+        "description": "Ordered shot prompts and durations; required when multi_shots is true."
+      }
+    ],
+    "tags": [
+      "multi-shot",
+      "audio",
+      "4k"
+    ],
+    "supports_unlim": null
+  },
+  {
+    "id": "kling_video_edit",
+    "name": "Kling 3.0 Omni Edit",
+    "provider_name": "Kling",
+    "description": "Edit a source video with text instructions and optional reference images",
+    "output_type": "video",
+    "aspect_ratios": [],
+    "medias": [
+      {
+        "name": "medias",
+        "type": "image",
+        "roles": [
+          "video_references",
+          "image_references"
+        ]
+      }
+    ],
+    "parameters": [
+      {
+        "name": "mode",
+        "required": "optional",
+        "type": "string",
+        "description": "Output quality: Standard, Pro, or 4K.",
+        "options": [
+          "std",
+          "pro",
+          "4k"
+        ],
+        "default": "pro"
+      }
+    ],
+    "tags": [
+      "video-edit",
+      "reference",
+      "4k"
+    ],
+    "supports_unlim": null
+  },
+  {
+    "id": "hf_mult_motion_control",
+    "name": "Genjutsu",
+    "provider_name": "Higgsfield",
+    "description": "Transfer motion from a reference video to subjects in reference images",
+    "output_type": "video",
+    "aspect_ratios": [],
+    "medias": [
+      {
+        "name": "medias",
+        "type": "image",
+        "roles": [
+          "image_references",
+          "video_references"
+        ]
+      }
+    ],
+    "parameters": [
+      {
+        "name": "resolution",
+        "required": "optional",
+        "type": "string",
+        "description": "Output resolution: 480p, 720p, or 1080p.",
+        "options": [
+          "480p",
+          "720p",
+          "1080p"
+        ],
+        "default": "720p"
+      }
+    ],
+    "tags": [
+      "motion-control",
+      "image-to-video",
+      "video-reference",
+      "480p",
+      "720p",
+      "1080p"
+    ],
+    "supports_unlim": null
+  },
+  {
+    "id": "hf_mult_replace_object",
+    "name": "Genjutsu",
+    "provider_name": "Higgsfield",
+    "description": "Replace objects in a source video using reference images",
+    "output_type": "video",
+    "aspect_ratios": [],
+    "medias": [
+      {
+        "name": "medias",
+        "type": "image",
+        "roles": [
+          "image_references",
+          "video_references"
+        ]
+      }
+    ],
+    "parameters": [
+      {
+        "name": "resolution",
+        "required": "optional",
+        "type": "string",
+        "description": "Output resolution: 480p, 720p, or 1080p.",
+        "options": [
+          "480p",
+          "720p",
+          "1080p"
+        ],
+        "default": "720p"
+      }
+    ],
+    "tags": [
+      "video-edit",
+      "object-replacement",
+      "reference",
+      "480p",
+      "720p",
+      "1080p"
+    ],
+    "supports_unlim": null
+  }
+]
