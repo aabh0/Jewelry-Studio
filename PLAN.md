@@ -13,6 +13,8 @@ Owner decisions already made (do not re-ask):
 | Editing depth | AI edits (inpaint, outpaint, relight, upscale, background removal, reframe, extend, object swap) plus a sequence assembler on ffmpeg (trim, order, transitions, music, text overlays, export). No multi-track NLE. |
 | Storage | SQLite + local filesystem under `DATA_DIR`. |
 | Single user | Yes. No accounts, no roles, no multi-tenancy. |
+| Save / resume / switch | Everything autosaves to SQLite + `DATA_DIR` as it happens; there is no Save button. Any project can be closed, reopened, or switched to at any point of any workflow with zero loss, including while jobs run (§27). |
+| UI/UX bar | Premium, studio-grade. A documented design system (§28) with tokens, typography, motion, empty/loading/error states and a per-milestone polish checklist is part of the deliverable, not a later pass. |
 
 ---
 
@@ -55,6 +57,7 @@ Where this plan and a research file disagree, **this plan wins**; where this pla
 7. All file paths in the DB are relative to `DATA_DIR`. Use `path.join`; never string-concatenate paths. Windows must work.
 8. Keep `src/lib/**` free of `next/*` imports; the worker imports those modules too.
 9. Write tests as you go (§21). A milestone is not done until its tests pass on Mac and the `pnpm build` succeeds.
+10. No in-memory-only state that matters. Every edit to a brief, spec, storyboard, timeline, filter view, or review decision is persisted on change (debounced ≤ 500 ms) and survives a browser refresh, an app restart, and switching projects (§27). Every screen passes the §28 polish checklist before its milestone closes.
 
 ---
 
@@ -176,6 +179,7 @@ Runtime: Node **24.21.0** (engines `>=24 <27`), pnpm **12.11.2** (`packageManage
     "react-compare-slider": "4.0.0", "react-zoom-pan-pinch": "4.2.0",
     "konva": "10.8.0", "react-konva": "19.3.0", "media-chrome": "4.19.3", "react-virtuoso": "4.18.19",
     "sonner": "2.0.8", "radix-ui": "1.8.1", "lucide-react": "1.57.0",
+    "cmdk": "1.1.1", "motion": "14.2.0", "@fontsource-variable/inter": "5.3.0", "@fontsource/instrument-serif": "5.3.0",
     "class-variance-authority": "0.7.1", "clsx": "2.1.1", "tailwind-merge": "3.7.0", "tw-animate-css": "1.4.0"
   },
   "devDependencies": {
@@ -669,12 +673,13 @@ Lighting editor component: visual pickers for every `LightingSpec` field with a 
 
 ## 15. UI
 
-Design language: dark studio UI (neutral greys, one accent), dense but calm; images are the content, chrome stays out of the way. Tailwind 4 + shadcn (installed via CLI into `src/components/ui`). Keyboard-first review. All screens are client components fed by TanStack Query; SSE updates `queryClient.setQueryData`.
+Design language and quality bar are specified in §28 (design system, motion, states, polish checklist); resumability rules in §27. Tailwind 4 + shadcn (installed via CLI into `src/components/ui`). Keyboard-first review. All screens are client components fed by TanStack Query; SSE updates `queryClient.setQueryData`.
 
 ### 15.1 Routes (`app/(studio)/...`)
 | Route | Screen |
 |---|---|
-| `/` | Projects list (cards, search, archive toggle), global spend today / this month, provider status chips (Cloud OK / CLI logged-in or "login needed" / Claude OK). |
+| `/` | Projects home: "Continue where you left off" hero card (last project, last screen, last touched asset, running jobs), recent projects row, all projects grid (cover image = latest approved asset, client, status, spend, last opened), search, archive toggle, provider status chips (Cloud OK / CLI logged-in or "login needed" / Claude OK). |
+| global | Project switcher in the top bar (`⌘/Ctrl+P`) and command palette (`⌘/Ctrl+K`, cmdk) listing projects, campaigns, products, talent, recent assets and actions; switching restores that project's last location (§27.2). |
 | `/settings` | Keys status (never shows values), lane availability + probe results, model routing per capability, concurrency, daily cap, DATA_DIR, binaries, "Run doctor". |
 | `/projects/[id]` | Project overview: products, talent, campaigns, recent assets, spend. |
 | `/projects/[id]/products/[productId]` | Product spec form (§9), refs with roles, plates, sheet, invariants chips, generation history for this product. |
@@ -828,7 +833,7 @@ Filters in review board + library are server-side (`/api/campaigns/:id/candidate
 
 ## 22. Milestones and acceptance criteria
 
-**M0 Foundation** — scaffold, env, DB + migrations, DATA_DIR, media route with Range, queue + worker + SSE, jobs page, settings page, doctor script. Done when: `pnpm dev` runs both processes; uploading a file creates an asset with thumb; a dummy job emits progress visible live; `pnpm test` green; Range request on an mp4 returns 206.
+**M0 Foundation** — scaffold, env, DB + migrations, DATA_DIR, media route with Range, queue + worker + SSE, jobs page, settings page, doctor script, design system shell (§28: tokens, fonts, app frame, top bar with project switcher and command palette, toast system, skeleton and empty-state primitives), resume store (§27.2). Done when: the §28 polish checklist passes on the shell and settings screens; `pnpm dev` runs both processes; uploading a file creates an asset with thumb; a dummy job emits progress visible live; `pnpm test` green; Range request on an mp4 returns 206.
 
 **M1 Providers** — cloud client (+msw tests), CLI adapter (+fixture tests), Claude client (+cached system block test asserting `cache_read_input_tokens>0` on second call in live mode), capability registry + `/api/capabilities`, estimate + ledger + cap, probe job writing `docs/probes/*.md`. Done when: live smoke passes on the owner's Mac with real keys; API-only mode (CLI logged out) shows every capability available except `video.cutout`.
 
@@ -836,13 +841,13 @@ Filters in review board + library are server-side (`/api/campaigns/:id/candidate
 
 **M3 Talent** — talent spec, sheets A–D, crops, outfits, optional Soul. Done when: a person created from a 2-line brief yields a reference pack and an on-model ear/hand test still keeps identity (QA identity ≥ 7).
 
-**M4 Image campaigns** — brief, shot list, planner, generation fan-out, QA, review board with keyboard map, refine loop, upscale, export. Done when: a 10-shot campaign runs end to end with ≤ 1 manual intervention per failure class, exports land in the channel folders with correct sizes, ledger matches estimates.
+**M4 Image campaigns** — brief, shot list, planner, generation fan-out, QA, review board with keyboard map, refine loop, upscale, export. Done when: the §27.4 resume test passes (quit mid-generation, relaunch, switch projects twice, return: nothing lost, jobs finished); every M4 screen passes the §28 checklist; a 10-shot campaign runs end to end with ≤ 1 manual intervention per failure class, exports land in the channel folders with correct sizes, ledger matches estimates.
 
 **M5 Video campaigns** — storyboard, editor with reorder, keyframes, clips (i2v, r2v, flf, presets), video QA, assembler, render, export. Done when: a 15 s 9:16 reel with 4 shots, music and end card renders at 1080×1920 with xfade transitions and plays in Safari and Chrome.
 
 **M6 Editing** — inpaint (both lanes), outpaint, relight, cutout/clean plate, upscale (3 paths), reframe, extend, object swap, crop/adjust, versions, compare. Done when: each op has a unit/integration test and a live example in the demo project.
 
-**M7 Library, cost, hardening** — library filters, presets, learned avoids, cost dashboard, critique/brief-parse, Windows pass (install, paths, drawtext font escaping, CLI `.cmd`), error copy review, README with setup steps. Done when: fresh clone on Windows reaches M4 acceptance; `pnpm build && pnpm start` serves standalone on both OSes.
+**M7 Library, cost, hardening** — library filters, presets, learned avoids, cost dashboard, critique/brief-parse, project archive/duplicate/export-bundle/import-bundle and backups (§27.3), Windows pass (install, paths, drawtext font escaping, CLI `.cmd`), error copy review, full §28 design audit across all screens, README with setup steps. Done when: a project bundle exported on Mac imports on Windows and resumes; fresh clone on Windows reaches M4 acceptance; `pnpm build && pnpm start` serves standalone on both OSes.
 
 Each milestone ends with a commit `feat(Mx): ...` and a short `docs/progress/Mx.md` (what works, what was deferred, live-test evidence).
 
@@ -884,3 +889,103 @@ Keep: no edge runtime; all paths from `DATA_DIR`; bind 127.0.0.1 with configurab
 
 ## 26. Glossary
 Lane A = Higgsfield Cloud API (`api.higgsfield.ai`). Lane B = Higgsfield consumer CLI (`higgsfield`). Plate = product on seamless background. Sheet = multi-view generated reference set. Candidate = one generated output. Keyframe = approved still that seeds a clip. Invariants = product facts that must hold in every render. Capability = app-level operation resolved to a lane implementation.
+
+---
+
+## 27. Projects: save, stop, resume, switch
+
+Goal: the owner can close the laptop mid-campaign, come back a week later, or hop between three client projects in one afternoon, and every project is exactly where it was left. There is no Save button anywhere in the app.
+
+### 27.1 Persistence rules
+- **Source of truth is the database and `DATA_DIR`, never React state.** Every mutation goes through a Route Handler and lands in SQLite before the UI confirms it (optimistic update in TanStack Query, rolled back on failure with a toast).
+- **Drafts persist on change.** Brief forms, product spec forms, talent specs, storyboard edits (text, order, durations, transitions), timeline edits (trims, overlays, music), lighting editor values, prompt-section edits, filter views, and review notes are written with a debounced `PATCH` (≤ 500 ms) and also flushed on `beforeunload`/`visibilitychange`. Half-filled forms are valid draft states: campaigns have `status:'draft'` and store partial `brief_json`; validation only gates the "Plan" / "Generate" actions, not saving.
+- **Autosave indicator.** The top bar shows "Saved" / "Saving…" / "Offline — retrying" (server unreachable) derived from the mutation queue; failed writes are retried with backoff and never silently dropped (queued mutations live in `localStorage` only as a crash buffer and are replayed on reload).
+- **Versioned documents.** Storyboards and timelines keep a `revisions` history (table `doc_revisions { id, doc_type, doc_id, revision, data_json, created_at }`, last 50 per doc) so "Revert to the version before I reordered everything" is one click.
+- **Jobs are project-scoped and durable.** The worker keeps running jobs for every project regardless of which project is open; the Jobs page and the per-project hub both show them. Restarting the app resumes polling by provider request id (§7.1). A job's outputs are attached to their shot/product/talent rows, so returning to a project shows results that finished while it was closed.
+- **Nothing depends on the browser tab.** SSE is a view, not a dependency; a project opened in two tabs stays consistent because both read the same DB and events.
+- **DB safety.** WAL with `wal_autocheckpoint`; `PRAGMA integrity_check` on worker boot (result in Settings); `pnpm backup` and a nightly backup job (`backup.snapshot`) copy `studio.sqlite` via the SQLite backup API to `DATA_DIR/backups/studio-<date>.sqlite` (keep 14); media files are never deleted by the app except through explicit "Delete asset" with confirmation, which moves to `DATA_DIR/trash/` (emptied after 30 days).
+
+### 27.2 Resume state ("jump back in")
+- Table `ui_state { scope PK, data_json, updated_at }` with scopes `global`, `project:<id>`, `campaign:<id>`, `review:<campaignId>:<stage>`, `library:<projectId>`.
+- Stored per scope: last route, selected tab/stage, active filters and sort, selected candidate id, scroll position (virtualized index), zoom level, drawer open/closed, assembler playhead, last-used generation settings (model, variants, aspect), collapsed panels.
+- Opening a project (`/projects/:id`) redirects to its last route if one exists and the target still exists; otherwise the hub. The switcher (`⌘/Ctrl+P`) lists projects by last opened with status and running-job count; switching is a client navigation that restores `project:<id>` state. The home page's "Continue" card uses `global.last_project_id`.
+- Breadcrumbs always show Project › Campaign › Stage so the owner never loses orientation after a switch.
+
+### 27.3 Project lifecycle operations
+- **Archive / unarchive** (hidden from switcher and home grid, data untouched). **Duplicate** (copies project, products, talent, presets; not generations) for a returning client. **Rename / change client / cover image.**
+- **Export bundle**: `jewelry-studio-<project>.jsbundle` = zip with `manifest.json` (schema version, app version), a JSON dump of every row scoped to the project, and the project's media tree. **Import bundle** on another machine (Mac ⇄ Windows) recreates the project with new ids mapped, verifies sha256 of every file, and reports missing files. Used for moving between the owner's two computers.
+- **Open folder** reveals `DATA_DIR/projects/<id>` in Finder/Explorer.
+- **Delete project** requires typing the project name; moves everything to `DATA_DIR/trash/<projectId>/`.
+
+### 27.4 Resume test (automated, Playwright, `MOCK_PROVIDERS=1`)
+1. Create project A, product, campaign; plan shots; start generation of 6 shots (mock latency 5 s each).
+2. After 2 s, navigate to project B, edit a storyboard, reorder two shots, edit a brief field, close the browser.
+3. Kill and restart both processes.
+4. Reopen: home shows "Continue" to project B with the storyboard screen; storyboard order and brief edit are present; switch to project A: all 6 shots have candidates, review state intact, filters restored; the jobs page shows them succeeded; no duplicate generations exist (ledger count = 6).
+
+---
+
+## 28. Premium UI/UX design system
+
+The app is used in front of jewelry clients. It must look and feel like a high-end creative tool, not an admin panel. These rules are binding; the implementing session must read `docs/design/` (created in M0 from this section) before building any screen.
+
+### 28.1 Design principles
+1. **The work is the interface.** Images and clips dominate every screen; chrome is thin, dark and quiet. No cards inside cards, no borders where spacing will do.
+2. **One accent.** A single warm gold accent for primary actions, focus and progress; everything else is neutral. Status colors are desaturated and used sparingly.
+3. **Fast and certain.** Every action responds within 100 ms (optimistic UI), every long task shows real progress with an ETA, and every destructive or paid action has a clear, well-designed confirmation that states cost and consequence.
+4. **Keyboard-first, mouse-perfect.** Every workflow has shortcuts (§15.3), every control is reachable by tab, and pointer interactions have hover previews, drag affordances and precise hit areas.
+5. **Calm density.** Dense information where the owner is working (review grid, storyboard), generous whitespace where they are deciding (brief, confirmations).
+6. **Nothing jumps.** Reserved space for images (known aspect ratio from the DB), skeletons that match final layout, no layout shift when data arrives.
+
+### 28.2 Tokens (`src/styles/tokens.css`, Tailwind 4 `@theme`)
+- **Color (dark default, light available):** surfaces `--bg-0 #0C0C0D`, `--bg-1 #141416`, `--bg-2 #1B1B1F`, `--bg-3 #232328`; hairlines `--line rgba(255,255,255,0.08)`; text `--fg-0 #F5F3EE` (warm white), `--fg-1 #B8B5AD`, `--fg-2 #7D7A73`; accent gold `--accent #D4B27A`, `--accent-strong #E8C98C`, `--accent-muted rgba(212,178,122,0.16)`; status `--ok #8FBF9F`, `--warn #D9B36B`, `--danger #D98B86`, `--info #8FA9C9`. Light theme mirrors with warm paper neutrals (`#F7F5F0` base). Contrast ≥ 4.5:1 for text, ≥ 3:1 for UI glyphs.
+- **Type:** UI `Inter Variable` (bundled via `@fontsource-variable/inter`, no external font requests); display headings and client-facing titles `Instrument Serif` (`@fontsource/instrument-serif`). Scale: 12 / 13 / 14 (body) / 16 / 20 / 28 / 40 (display). Tabular numerals for costs and durations. Letter-spacing tightened on display sizes.
+- **Space:** 4-px base; component paddings 8/12/16; section gaps 24/32/48. **Radii:** 6 (controls), 10 (cards), 16 (dialogs/drawers), full (pills). **Shadows:** only on floating layers (popovers, drawers, dialogs), soft and large; none on in-flow cards. **Hairline borders** at 1 px with `--line`.
+- **Icons:** lucide at 16/20 px, 1.5 px stroke.
+
+### 28.3 Motion (`motion` 14, respects `prefers-reduced-motion`)
+- Durations: 120 ms micro (hover, toggles), 180 ms standard (panels, drawers), 260 ms large (dialogs, route transitions). Easing `cubic-bezier(0.2, 0.8, 0.2, 1)`; exits faster than entrances.
+- Review grid: new candidates fade-and-rise in as they arrive; approve/reject gives a 120 ms scale-and-tint pulse; removing a card collapses its slot smoothly.
+- Storyboard drag: lifted card gets elevation and 1.02 scale; siblings animate to new positions (`@dnd-kit` + `motion` layout animations).
+- Progress: thin accent progress bars on job cards and a subtle top-of-screen bar for the active fan-out; numeric percent only where it is honest (ffmpeg, downloads), otherwise a determinate-looking stage stepper ("Uploading refs → Submitted → Rendering → Downloading → QA").
+- No decorative animation. No spinners longer than 300 ms without text.
+
+### 28.4 Application frame
+- Left rail (64 px, icons with tooltips): Home, Projects, Library, Jobs, Settings. Top bar: breadcrumbs, project switcher, autosave state, running-jobs pill (click → jobs drawer), spend today, command palette trigger. Content area edge-to-edge. Right-side drawers (asset, job, lighting editor) at 420–560 px with resizable handle. Dialogs centered, max 640 px, with a clear primary action and cost line when money is involved.
+- Command palette (`cmdk`): projects, campaigns, products, talent, recent assets, actions ("New campaign", "Generate approved shots", "Open exports folder", "Switch theme").
+
+### 28.5 Screen-level direction
+- **Home:** large "Continue" card with the last touched asset as a soft blurred backdrop, project name in Instrument Serif, one-line status and a primary "Resume" button; recent projects as cover-image tiles.
+- **Project hub:** cover image header (latest approved still), client and brand palette swatches, three columns (Products, Talent, Campaigns) with cover thumbnails; status pills; spend.
+- **Product page:** large reference viewer left, spec form right in two columns, invariants as editable chips, plates/sheet strip below with approve toggles.
+- **Shot planner:** card per shot with a 3:4 placeholder sized to the shot aspect, title in serif, purpose, lighting and lens chips, estimate badge, prompt preview on hover/expand; bulk approve bar sticky at bottom with total cost.
+- **Review board:** full-bleed masonry/grid, cards show image only until hover (then score ring, flags, actions); selected card has a 2 px accent ring; the drawer opens from the right without covering the selected card; compare mode is a true side-by-side with synchronized zoom/pan.
+- **Storyboard:** horizontal filmstrip of cards with durations drawn as proportional widths, transitions as small glyphs between cards, total duration vs target shown as a bar; cards expand inline for editing.
+- **Assembler:** cinema-style player top, filmstrip with trim handles that snap to frames, music waveform (peaks computed by ffmpeg `astats`/`showwavespic` into a PNG), overlays shown as tracks under the strip.
+- **Jobs:** calm list grouped by project, progress bars, log drawer with monospace output.
+- **Settings:** grouped sections, key status as masked chips with "Test" buttons, lane status with the exact fix instruction when something is off.
+
+### 28.6 States and copy
+- Every list has a designed empty state (illustration-free: a serif headline, one sentence, one primary action). Every async view has a skeleton matching final layout. Every error shows what happened, why it probably happened, and the one action to take (copy written in plain English; provider error text in a collapsible "details").
+- Confirmations for paid actions: title, what will be generated, lane and model, estimate in large tabular numerals, remaining daily budget, primary button labelled with the verb ("Generate 24 images").
+- Undo for review actions (toast with "Undo", 6 s). Undo for storyboard reorder and timeline edits via revisions (§27.1).
+- Tooltips on every icon button; shortcut hints in tooltips and menus.
+- Numbers formatted consistently (`$0.46`, `1.2k credits`, `00:12.5`).
+
+### 28.7 Accessibility and responsiveness
+- Minimum viewport 1280 × 800 (laptop); layouts fluid up to ultrawide with max content width for forms (720 px). Focus rings visible (accent, 2 px, offset 2). All controls labelled; drawers and dialogs trap focus and restore it. Color never the only signal (icons/text accompany status). Reduced-motion respected.
+
+### 28.8 Polish checklist (run per screen before closing its milestone; record in `docs/progress/Mx.md`)
+1. Matches tokens (no ad-hoc colors, radii, shadows, font sizes).
+2. No layout shift on load, on data arrival, or on hover.
+3. Loading, empty, error, and success states all designed and reachable.
+4. Keyboard path for the primary task works end to end; focus visible.
+5. Hover/pressed/disabled states on every control; cursor correct.
+6. Text truncation and long names handled (ellipsis + title).
+7. Dark and light themes both correct.
+8. Motion within §28.3 budgets; reduced-motion honoured.
+9. Paid-action dialogs show cost and consequence.
+10. Screenshot at 1440 × 900 saved to `docs/progress/screens/<screen>.png`.
+
+### 28.9 Reference points (direction only; never copy)
+Linear (density and keyboard model), Frame.io (review and compare), Capture One (image-first dark studio chrome), Arc/Raycast (command palette feel), high-end jewelry e-commerce (type and whitespace). The build session should load the `anthropic-skills:frontend-design` skill when implementing screens and follow this section where the two differ.
