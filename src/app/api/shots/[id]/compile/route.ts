@@ -1,0 +1,23 @@
+import { route, json, db } from "@/server/http";
+import { loadShotContext } from "@/server/campaigns";
+import { buildShotReferences } from "@/queue/handlers/generate";
+import { compilePrompt } from "@/domain/prompt/compile";
+import { formulaEstimateUsd } from "@/providers/higgsfield/cloud/endpoints";
+import { resolveCapability, laneStatus } from "@/providers/capability";
+import { soulReady } from "@/queue/handlers/generate";
+import { capabilityOverrides } from "@/server/settings";
+export const dynamic = "force-dynamic";
+export const POST = route<{ id: string }>(async (_req, { params }) => {
+  const d = db();
+  const sc = loadShotContext(d, params.id);
+  const { roles } = buildShotReferences(sc);
+  const bundle = compilePrompt({ shot: sc.shot.spec, products: sc.products.map((p) => ({ id: p.id, name: p.name, spec: p.spec, invariants: p.invariants, learnedAvoids: p.learnedAvoids })), talent: sc.talent ? { id: sc.talent.id, name: sc.talent.name, spec: sc.talent.spec, outfit: sc.outfit?.spec } : undefined, references: roles, target: { model: "marketing-studio/image/flare", lane: "cloud", resolution: sc.campaign.settings.resolution }, brief: sc.campaign.brief });
+  const status = await laneStatus();
+  const cap = sc.talent ? "image.generate.person" : "image.generate.product";
+  const overrides = capabilityOverrides(d);
+  const override = sc.campaign.settings.image_capability_override;
+  const resolved = resolveCapability(cap, status, override ? { ...overrides, [cap]: override } : overrides, { exclude: soulReady(sc.talent) ? [] : ["cli.soul"] });
+  const unit = resolved.impl.lane === "cloud" ? formulaEstimateUsd(resolved.impl.model, { resolution: sc.campaign.settings.resolution }) : null;
+  const variants = sc.shot.spec.variants ?? sc.campaign.settings.variants_per_shot;
+  return json({ bundle, resolved, estimate: unit !== null ? { unit_usd: unit, total_usd: +(unit * variants).toFixed(3), variants } : { unit_usd: null, total_usd: null, variants, note: resolved.impl.lane === "cli" ? "credits (estimated at run time)" : "estimated at run time" } });
+});

@@ -1,0 +1,10 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "jsx": "preserve",
+    "types": ["node"]
+  },
+  "include": ["./**/*.ts", "../src/env/**/*.ts", "../src/db/**/*.ts", "../src/domain/**/*.ts", "../src/providers/**/*.ts", "../src/queue/**/*.ts", "../src/lib/**/*.ts", "../src/server/**/*.ts"],
+  "exclude": ["../src/app/**", "../src/components/**", "../src/hooks/**"]
+}

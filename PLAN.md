@@ -107,41 +107,50 @@ Principles: two processes, one SQLite file, no sockets between them. The worker 
 
 ## 3. Repository layout
 
+As built (differences from the original sketch are listed in `docs/progress/M0.md`):
+
 ```
 jewelry-studio/
-  package.json  pnpm-lock.yaml  .npmrc  .env.example  .gitignore
-  next.config.ts  tsconfig.json  drizzle.config.ts  vitest.config.ts  playwright.config.ts
-  eslint.config.js  postcss.config.mjs
-  PLAN.md  CLAUDE.md  README.md
+  package.json  pnpm-lock.yaml  pnpm-workspace.yaml  .npmrc  .env.example  .gitignore
+  next.config.ts  tsconfig.json  drizzle.config.ts  vitest.config.ts  playwright.config.ts  eslint.config.mjs
+  PLAN.md  CLAUDE.md  AGENTS.md  README.md
   docs/research/**                      # vendored references (read-only)
-  assets/fonts/Inter-Regular.ttf  assets/fonts/Inter-SemiBold.ttf   # for drawtext/overlays
-  drizzle/                              # generated SQL migrations (committed)
+  docs/design/README.md                 # how §28 is implemented
+  docs/progress/M0..M7.md               # milestone notes and deviations
+  docs/probes/README.md                 # live-probe log (empty until real keys are used)
+  assets/fonts/*.ttf                    # Inter + Instrument Serif for ffmpeg drawtext (SIL OFL)
+  drizzle/                              # generated SQL migrations (committed), applied on first DB open
+  scripts/doctor.ts  scripts/backup.ts  scripts/postbuild.mjs
   src/
-    env.ts                              # zod-validated env (server only), shared by app + worker
+    env/index.ts                        # zod-validated env (server only), shared by app + worker
     db/schema.ts  db/client.ts  db/migrate.ts
     domain/                             # pure TS, no IO
-      taxonomy.ts        # enums (§9.1)
-      product.ts         # ProductSpec zod schema, invariants derivation, size tables (§9)
-      talent.ts          # TalentSpec, casting enums (§10)
-      lighting.ts        # lighting/scene enums, presets, material rules (§11)
-      delivery.ts        # channel spec constants (§18)
-      storyboard.ts      # Storyboard/Shot zod schemas (§13)
-      prompt/            # prompt compiler (§12): sections.ts, templates/*.ts, negatives.ts, compile.ts
+      taxonomy.ts  sizes.ts  product.ts  talent.ts  lighting.ts  delivery.ts  storyboard.ts  timeline.ts
+      prompt/compile.ts  prompt/negatives.ts  prompt/templates/higgsfield-masters.ts
     providers/
-      capability.ts      # registry + resolver (§8.4)
-      higgsfield/cloud/client.ts  upload.ts  endpoints.ts  types.ts   (§8.1)
-      higgsfield/cli/adapter.ts   parse.ts   models.ts               (§8.2)
-      claude/client.ts  prompts/*.ts  schemas.ts                     (§8.3)
-      local/sharp.ts  local/ffmpeg.ts  local/ffprobe.ts              (§8.5)
-    queue/  schema is in db; here: enqueue.ts, worker.ts, handlers/*.ts, events.ts, errors.ts
-    lib/    files.ts (DATA_DIR paths, atomic write, hash)  ids.ts  log.ts  money.ts
-    server/ services used by routes: projects.ts products.ts talent.ts campaigns.ts assets.ts review.ts export.ts
-  app/
-    layout.tsx  page.tsx  globals.css
-    (studio)/projects/[projectId]/...   # screens (§15)
-    api/**/route.ts                     # HTTP API (§16)
-  worker/main.ts  worker/tsconfig.json
-  tests/unit/**  tests/integration/**  tests/e2e/**  tests/fixtures/**
+      capability.ts                     # registry + resolver (§8.4)
+      higgsfield/cloud/{client,endpoints,types}.ts     (§8.1)
+      higgsfield/cli/{adapter,parse,models}.ts         (§8.2)
+      claude/client.ts  claude/prompts/craft.md        (§8.3)
+      local/{sharp,ffmpeg,ffprobe}.ts                  (§8.5)
+      mock/index.ts                     # MOCK_PROVIDERS=1 fixtures
+    queue/  types.ts  enqueue.ts  worker.ts  events.ts  handlers/*.ts
+    lib/    files.ts  ids.ts  log.ts  money.ts  json.ts  cn.ts  api.ts (browser fetch wrapper)
+    server/ errors.ts  http.ts  assets.ts  projects.ts  products.ts  talent.ts  campaigns.ts  settings.ts  jobs.ts
+    styles/tokens.css
+    hooks/  use-api.ts (useGet/useAction/useAutosave)  use-ui-state.ts  use-events.ts (SSE)
+    components/ui/*  components/frame/*  components/studio/*
+    app/
+      layout.tsx  page.tsx  globals.css
+      projects/page.tsx  library/page.tsx  jobs/page.tsx  settings/page.tsx
+      projects/[id]/{layout,page}.tsx
+      projects/[id]/products/{new,[productId]}/page.tsx
+      projects/[id]/talent/{new,[talentId]}/page.tsx
+      projects/[id]/campaigns/new/page.tsx
+      projects/[id]/campaigns/[campaignId]/{page,shots,storyboard,review,assemble,exports}
+      api/**/route.ts                   # HTTP API (§16)
+  worker/main.ts  worker/tsconfig.json  # run with tsx (dev: watch; prod: plain)
+  tests/unit/**  tests/integration/**  tests/e2e/{harness.ts,resume.spec.ts}  tests/fixtures/**
 ```
 
 ---

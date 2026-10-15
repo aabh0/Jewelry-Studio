@@ -1,0 +1,58 @@
+/* Jewelry Studio design tokens (PLAN.md §28.2) */
+:root {
+  --bg-0: #0c0c0d;
+  --bg-1: #141416;
+  --bg-2: #1b1b1f;
+  --bg-3: #232328;
+  --bg-4: #2b2b31;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.14);
+  --fg-0: #f5f3ee;
+  --fg-1: #b8b5ad;
+  --fg-2: #7d7a73;
+  --fg-3: #55534e;
+  --accent: #d4b27a;
+  --accent-strong: #e8c98c;
+  --accent-muted: rgba(212, 178, 122, 0.16);
+  --accent-fg: #1a1408;
+  --ok: #8fbf9f;
+  --warn: #d9b36b;
+  --danger: #d98b86;
+  --info: #8fa9c9;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --shadow-float: 0 24px 64px -24px rgba(0, 0, 0, 0.7), 0 2px 8px rgba(0, 0, 0, 0.35);
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --dur-micro: 120ms;
+  --dur-std: 180ms;
+  --dur-large: 260ms;
+  --font-sans: "Inter Variable", "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --bg-0: #f7f5f0;
+  --bg-1: #ffffff;
+  --bg-2: #f1eee8;
+  --bg-3: #e9e5de;
+  --bg-4: #ded9d0;
+  --line: rgba(20, 16, 8, 0.1);
+  --line-strong: rgba(20, 16, 8, 0.18);
+  --fg-0: #16140f;
+  --fg-1: #4f4b43;
+  --fg-2: #7d7870;
+  --fg-3: #a9a49b;
+  --accent: #a3813f;
+  --accent-strong: #8a6b2f;
+  --accent-muted: rgba(163, 129, 63, 0.14);
+  --accent-fg: #fffaf0;
+  --ok: #3f8a5a;
+  --warn: #a8812e;
+  --danger: #b4473f;
+  --info: #3f6a9a;
+  --shadow-float: 0 24px 64px -24px rgba(30, 20, 0, 0.25), 0 2px 8px rgba(30, 20, 0, 0.08);
+  color-scheme: light;
+}
