@@ -146,8 +146,9 @@ export function describeProduct(specIn: ProductSpec): string {
   lines.push(`A ${kind} in ${metalPhrase(spec)}.`);
   for (const s of spec.stones) lines.push(`Stones: ${stonePhrase(s)}.`);
   if (spec.setting) {
-    const pc = spec.setting.prong_count ? `${spec.setting.prong_count}-prong ` : "";
-    lines.push(`Primary setting: ${pc}${humanize(spec.setting.type).toLowerCase()}${spec.setting.halo ? " with halo" : ""}.`);
+    const type = humanize(spec.setting.type).toLowerCase();
+    const label = spec.setting.type === "prong" && spec.setting.prong_count ? `${spec.setting.prong_count}-prong` : spec.setting.prong_count ? `${spec.setting.prong_count}-prong ${type}` : type;
+    lines.push(`Primary setting: ${label}${spec.setting.halo ? " with halo" : ""}.`);
   }
   if (spec.chain) {
     const c = spec.chain;

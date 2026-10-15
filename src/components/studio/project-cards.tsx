@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import Link from "next/link";
-import { FolderOpen, Image as ImageIcon, Film } from "lucide-react";
+import { FolderOpen, Image as ImageIcon, Film, Gem, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogFooter } from "@/components/ui/dialog";
@@ -19,6 +19,8 @@ export interface ProductLite { id: string; name: string; sku: string | null; spe
 export interface TalentLite { id: string; name: string; identityMode: string; soulStatus: string | null; refs: { assetId: string; role: string; asset: { id: string; kind: string; pathRel: string } }[]; outfits: { id: string; name: string }[]; spec: { age_range: string; gender_presentation: string } }
 
 export const STATUS_LABEL: Record<string, string> = { draft: "Draft", shots_pending_approval: "Shots to approve", generating: "Generating", review: "In review", assembling: "Assembling", exported: "Exported", archived: "Archived" };
+
+export const plural = (n: number, one: string, many = `${one}s`) => `${n} ${n === 1 ? one : many}`;
 
 export function relTime(ts: number) {
   const d = Date.now() - ts;
@@ -94,23 +96,23 @@ export function ProductCard({ p, projectId }: { p: ProductLite; projectId: strin
   const primary = p.refs.find((r) => r.isPrimary) ?? p.refs[0];
   return (
     <Link href={`/projects/${projectId}/products/${p.id}`} className="group block overflow-hidden rounded-[var(--radius-md)] bg-bg-1 hairline transition-transform duration-[var(--dur-micro)] hover:-translate-y-0.5">
-      <AssetThumb asset={primary?.asset ?? null} aspect={1} rounded={false}>{p.validation.errors.length ? <Badge tone="danger" className="absolute left-2 top-2">needs fix</Badge> : null}</AssetThumb>
+      <AssetThumb asset={primary?.asset ?? null} aspect={1} rounded={false} empty={<Gem className="size-7" />}>{p.validation.errors.length ? <Badge tone="danger" className="absolute left-2 top-2">needs fix</Badge> : null}</AssetThumb>
       <div className="p-3">
         <div className="text-[14px] font-medium truncate">{p.name}</div>
-        <div className="mt-0.5 text-[12px] text-fg-2 truncate">{humanize(p.spec.subtype ?? p.spec.category)} · {humanize(p.spec.metal.type)} · {p.refs.length} refs</div>
+        <div className="mt-0.5 text-[12px] text-fg-2 truncate">{humanize(p.spec.subtype ?? p.spec.category)} · {humanize(p.spec.metal.type)} · {plural(p.refs.length, "ref")}</div>
       </div>
     </Link>
   );
 }
 
 export function TalentCard({ t, projectId }: { t: TalentLite; projectId: string }) {
-  const primary = t.refs.find((r) => r.role === "front") ?? t.refs[0];
+  const primary = t.refs.find((r) => r.role === "front") ?? t.refs.find((r) => r.role !== "sheet") ?? t.refs[0];
   return (
     <Link href={`/projects/${projectId}/talent/${t.id}`} className="group block overflow-hidden rounded-[var(--radius-md)] bg-bg-1 hairline transition-transform duration-[var(--dur-micro)] hover:-translate-y-0.5">
-      <AssetThumb asset={primary?.asset ?? null} aspect={4 / 5} rounded={false}>{t.soulStatus === "ready" ? <Badge tone="ok" className="absolute left-2 top-2">Soul ID</Badge> : null}</AssetThumb>
+      <AssetThumb asset={primary?.asset ?? null} aspect={4 / 5} rounded={false} empty={<User className="size-7" />}>{t.soulStatus === "ready" ? <Badge tone="ok" className="absolute left-2 top-2">Soul ID</Badge> : null}</AssetThumb>
       <div className="p-3">
         <div className="text-[14px] font-medium truncate">{t.name}</div>
-        <div className="mt-0.5 text-[12px] text-fg-2 truncate">{t.spec.age_range} · {t.refs.length} refs · {t.outfits.length} outfits</div>
+        <div className="mt-0.5 text-[12px] text-fg-2 truncate">{t.spec.age_range} · {plural(t.refs.filter((r) => r.role !== "sheet").length, "ref")} · {plural(t.outfits.length, "outfit")}</div>
       </div>
     </Link>
   );

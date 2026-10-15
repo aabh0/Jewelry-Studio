@@ -316,12 +316,15 @@ export function listExports(db: DB, campaignId: string) {
 }
 
 /** Everything the generation handlers need about a shot, in one call. */
+const PEOPLE_FORMATS: string[] = ["on_model_beauty_crop", "hand_model", "couples_gifting", "social_ugc_tryon", "lifestyle_editorial"];
+
 export function loadShotContext(db: DB, shotId: string) {
   const shot = getShot(db, shotId);
   const campaign = getCampaign(db, shot.campaignId);
   const productIds = shot.spec.product_ids.length ? shot.spec.product_ids : campaign.productIds.slice(0, 1);
   const prods = productIds.map((id) => getProduct(db, id));
-  const talentId = shot.spec.talent_id ?? campaign.talent[0]?.talentId;
+  // The campaign's person only joins shots that are about a person; product formats stay product-only unless the shot names someone.
+  const talentId = shot.spec.talent_id ?? (PEOPLE_FORMATS.includes(shot.spec.format) ? campaign.talent[0]?.talentId : undefined);
   const tal = talentId ? getTalent(db, talentId) : undefined;
   const outfitId = shot.spec.outfit_id ?? campaign.talent.find((t) => t.talentId === talentId)?.outfitId ?? undefined;
   const outfit = tal?.outfits.find((o) => o.id === outfitId);

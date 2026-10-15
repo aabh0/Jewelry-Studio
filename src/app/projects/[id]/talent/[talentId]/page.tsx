@@ -22,7 +22,7 @@ import { humanize } from "@/domain/taxonomy";
 import { cn } from "@/lib/cn";
 
 const REF_ROLES = ["front", "three_quarter", "profile", "full_body", "expression", "hands", "ears", "neck", "sheet", "upload"] as const;
-interface Ref { assetId: string; role: string; approved: number; order: number; asset: { id: string; kind: string; pathRel: string; width: number | null; height: number | null; originalName: string | null } }
+interface Ref { assetId: string; role: string; approved: number; order: number; asset: { id: string; kind: string; pathRel: string; width: number | null; height: number | null; originalName: string | null; metaJson?: string | null } }
 interface Outfit { id: string; name: string; spec: OutfitSpec; refs: { id: string; kind: string; pathRel: string; width: number | null; height: number | null }[] }
 interface Talent { id: string; projectId: string; name: string; spec: TalentSpec; lockedFeatures: string[]; identityMode: "reference_pack" | "soul_id"; soulId: string | null; soulStatus: string | null; refs: Ref[]; outfits: Outfit[] }
 const LOCKABLE = ["face", "hair", "skin tone", "nails", "ears", "body"];
@@ -98,7 +98,7 @@ export default function TalentPage() {
                 {sheets.map((r) => (
                   <div key={r.assetId} className="space-y-1.5">
                     <RefTile r={r} onOpen={() => setOpen(r.assetId)} onApprove={() => patchRef.mutate({ assetId: r.assetId, approved: !r.approved })} onRemove={() => removeRef.mutate(r.assetId)} />
-                    <div className="flex gap-1"><Button size="sm" variant="ghost" className="flex-1" onClick={() => sheet.mutate({ kind: guessSheetKind(r.asset.originalName), crop_asset_id: r.assetId })}><Scissors /> Crop panels</Button></div>
+                    <div className="flex gap-1"><Button size="sm" variant="ghost" className="flex-1" onClick={() => sheet.mutate({ kind: sheetKindOf(r.asset), crop_asset_id: r.assetId })}><Scissors /> Crop panels</Button></div>
                   </div>
                 ))}
               </div>
@@ -160,8 +160,9 @@ export default function TalentPage() {
   );
 }
 
-function guessSheetKind(name: string | null): string {
-  const n = (name ?? "").toLowerCase();
+function sheetKindOf(a: Ref["asset"]): string {
+  try { const k = (JSON.parse(a.metaJson ?? "{}") as { sheet_kind?: string }).sheet_kind; if (k) return k; } catch { /* fall back to the name */ }
+  const n = (a.originalName ?? "").toLowerCase();
   if (/turn/.test(n)) return "turnaround";
   if (/expr/.test(n)) return "expressions";
   if (/hand|ear|neck/.test(n)) return "hands_ears_neck";

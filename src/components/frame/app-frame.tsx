@@ -115,9 +115,10 @@ function SaveIndicator({ state }: { state: "saved" | "dirty" | "saving" | "error
 
 function Breadcrumbs({ pathname }: { pathname: string }) {
   const projectId = /^\/projects\/([^/]+)/.exec(pathname)?.[1];
-  const campaignId = /\/campaigns\/([^/]+)/.exec(pathname)?.[1];
-  const productId = /\/products\/([^/]+)/.exec(pathname)?.[1];
-  const talentId = /\/talent\/([^/]+)/.exec(pathname)?.[1];
+  const notNew = (v: string | undefined) => (v && v !== "new" ? v : undefined);
+  const campaignId = notNew(/\/campaigns\/([^/]+)/.exec(pathname)?.[1]);
+  const productId = notNew(/\/products\/([^/]+)/.exec(pathname)?.[1]);
+  const talentId = notNew(/\/talent\/([^/]+)/.exec(pathname)?.[1]);
   const project = useGet<{ name: string }>(projectId ? `/api/projects/${projectId}` : null);
   const campaign = useGet<{ name: string }>(campaignId ? `/api/campaigns/${campaignId}` : null);
   const product = useGet<{ name: string }>(productId ? `/api/products/${productId}` : null);
@@ -128,6 +129,8 @@ function Breadcrumbs({ pathname }: { pathname: string }) {
   if (campaignId) crumbs.push({ href: `/projects/${projectId}/campaigns/${campaignId}`, label: campaign.data?.name ?? "Campaign" });
   if (productId) crumbs.push({ href: pathname, label: product.data?.name ?? "Product" });
   if (talentId) crumbs.push({ href: pathname, label: talent.data?.name ?? "Talent" });
+  const leaf = pathname.split("/").slice(-2);
+  if (leaf[1] === "new") crumbs.push({ href: pathname, label: leaf[0] === "products" ? "New product" : leaf[0] === "talent" ? "New person" : "New campaign" });
   if (campaignId && stage && !["campaigns", campaignId].includes(stage)) crumbs.push({ href: pathname, label: stage[0].toUpperCase() + stage.slice(1) });
   if (crumbs.length === 0) {
     const top = pathname === "/" ? "Home" : pathname.slice(1).split("/")[0];

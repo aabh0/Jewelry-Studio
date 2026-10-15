@@ -14,7 +14,7 @@ import { EmptyState, SectionTitle } from "@/components/ui/empty";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Menu, MenuTrigger, MenuContent, MenuItem, MenuLabel } from "@/components/ui/menu";
 import { useGet, useAction, useAutosave } from "@/hooks/use-api";
-import { api, mediaUrl } from "@/lib/api";
+import { api, mediaUrl, thumbUrl } from "@/lib/api";
 import { CampaignHeader, type Campaign } from "@/components/studio/campaign-nav";
 import { RunningJobs } from "@/components/studio/widgets";
 import { AssetThumb } from "@/components/studio/asset-thumb";
@@ -85,8 +85,8 @@ export default function AssemblePage() {
           </section>
           {(preview || final) ? (
             <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {preview ? <div className="space-y-2"><div className="text-[12px] uppercase tracking-wide text-fg-2">Preview (540p)</div><VideoPlayer pathRel={preview.pathRel} className="rounded-[var(--radius-md)] overflow-hidden" /></div> : null}
-              {final ? <div className="space-y-2"><div className="flex items-center justify-between"><div className="text-[12px] uppercase tracking-wide text-fg-2">Final render</div><a className="text-[12px] text-accent hover:underline" href={mediaUrl(final.pathRel)} download>Download</a></div><VideoPlayer pathRel={final.pathRel} className="rounded-[var(--radius-md)] overflow-hidden" /></div> : null}
+              {preview ? <div className="space-y-2"><div className="text-[12px] uppercase tracking-wide text-fg-2">Preview (540p)</div><VideoPlayer pathRel={preview.pathRel} poster={thumbUrl(preview.id, 720)} className="rounded-[var(--radius-md)] overflow-hidden" /></div> : null}
+              {final ? <div className="space-y-2"><div className="flex items-center justify-between"><div className="text-[12px] uppercase tracking-wide text-fg-2">Final render</div><a className="text-[12px] text-accent hover:underline" href={mediaUrl(final.pathRel)} download>Download</a></div><VideoPlayer pathRel={final.pathRel} poster={thumbUrl(final.id, 720)} className="rounded-[var(--radius-md)] overflow-hidden" /></div> : null}
             </section>
           ) : null}
         </div>

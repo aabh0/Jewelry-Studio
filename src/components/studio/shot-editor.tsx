@@ -37,7 +37,7 @@ export function ShotEditor({ title, spec, onChange, products, talent, isVideo }:
           </div>
           <Field label="Products in frame"><div className="flex flex-wrap gap-1.5">{products.map((p) => <Chip key={p.id} active={spec.product_ids.includes(p.id)} onClick={() => set({ product_ids: spec.product_ids.includes(p.id) ? spec.product_ids.filter((x) => x !== p.id) : [...spec.product_ids, p.id] })}>{p.name}</Chip>)}</div></Field>
           <div className="grid grid-cols-2 gap-3">
-            <Field label="Person"><Select value={spec.talent_id ?? ""} onChange={(e) => set({ talent_id: e.target.value || undefined, outfit_id: undefined })}><option value="">None (product only)</option>{talent.map((t) => <option key={t.id} value={t.id}>{t.name}</option>)}</Select></Field>
+            <Field label="Person"><Select value={spec.talent_id ?? ""} onChange={(e) => set({ talent_id: e.target.value || undefined, outfit_id: undefined })}><option value="">{["on_model_beauty_crop", "hand_model", "couples_gifting", "social_ugc_tryon", "lifestyle_editorial"].includes(spec.format) ? "Campaign person" : "None (product only)"}</option>{talent.map((t) => <option key={t.id} value={t.id}>{t.name}</option>)}</Select></Field>
             <Field label="Outfit"><Select value={spec.outfit_id ?? ""} disabled={!selTalent} onChange={(e) => set({ outfit_id: e.target.value || undefined })}><option value="">Campaign default</option>{(selTalent?.outfits ?? []).map((o) => <option key={o.id} value={o.id}>{o.name}</option>)}</Select></Field>
           </div>
           <div className="grid grid-cols-2 gap-3">

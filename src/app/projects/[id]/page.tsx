@@ -14,7 +14,7 @@ import { api } from "@/lib/api";
 import { formatUsd } from "@/lib/money";
 import { RunningJobs } from "@/components/studio/widgets";
 import { CHANNELS } from "@/domain/delivery";
-import { CampaignCard, ProductCard, TalentCard, type ProjectFull, type CampaignLite, type ProductLite, type TalentLite } from "@/components/studio/project-cards";
+import { CampaignCard, ProductCard, TalentCard, plural, type ProjectFull, type CampaignLite, type ProductLite, type TalentLite } from "@/components/studio/project-cards";
 import { toast } from "sonner";
 
 export default function ProjectHub() {
@@ -37,7 +37,7 @@ export default function ProjectHub() {
           <div className="text-[12px] uppercase tracking-wide text-fg-2">{p?.clientName ?? "Project"}</div>
           {p ? <h1 className="mt-1 font-display text-[40px] leading-none truncate">{p.name}</h1> : <Skeleton className="h-10 w-80 mt-1" />}
           <div className="mt-2 flex items-center gap-2 text-[13px] text-fg-1 tabular">
-            <span>{p?.campaignCount ?? 0} campaigns</span><span className="text-fg-3">·</span><span>{p?.productCount ?? 0} products</span><span className="text-fg-3">·</span><span>{p?.talentCount ?? 0} people</span><span className="text-fg-3">·</span><span>{formatUsd(p?.spendUsd)} spent</span>
+            <span>{plural(p?.campaignCount ?? 0, "campaign")}</span><span className="text-fg-3">·</span><span>{plural(p?.productCount ?? 0, "product")}</span><span className="text-fg-3">·</span><span>{plural(p?.talentCount ?? 0, "person", "people")}</span><span className="text-fg-3">·</span><span>{formatUsd(p?.spendUsd)} spent</span>
           </div>
         </div>
         <div className="flex items-center gap-2 shrink-0">

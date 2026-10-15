@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import type { HandlerSpec } from "@/queue/types";
 import { PermanentError } from "@/queue/types";
 import { runGeneration, projectOutDir } from "./common";
-import { getTalent, addTalentRef, updateTalent, talentReferenceSet } from "@/server/talent";
+import { getTalent, addTalentRef, updateTalent, updateTalentRef, talentReferenceSet } from "@/server/talent";
 import { registerAsset, assetAbs } from "@/server/assets";
 import { compileCharacterSheet } from "@/domain/prompt/compile";
 import { cropToRect } from "@/providers/local/sharp";
@@ -44,7 +44,10 @@ export const talentSheet: HandlerSpec<{ talent_id: string; kind?: SheetKind; out
       const a = await registerAsset(ctx.db, { projectId: t.projectId, absFile: out.files[i], role: "sheet", kind: "image", sourceJobId: ctx.job.id, providerUrl: out.providerUrls[i], meta: { talent_id: t.id, sheet_kind: kind, index: i }, tags: ["talent-sheet", kind] });
       sheetIds.push(a.id);
       ctx.emit("artifact", { asset_id: a.id, talent_id: t.id, sheet_kind: kind });
-      // Non-variant sheets are auto-cropped and attached as references; split variants wait for the owner to pick one (then cropped via talent.sheet with source_asset_id).
+      // Every sheet is attached so the owner can see it. Single sheets are auto-cropped into references;
+      // split variants stay excluded until the owner picks one and crops it (talent.sheet with crop_asset_id).
+      addTalentRef(ctx.db, t.id, a.id, "sheet");
+      updateTalentRef(ctx.db, t.id, a.id, { approved: false });
       if (variants === 1) await cropSheet(ctx, t.id, t.projectId, a.id, assetAbs(a), kind);
     }
     return { sheet_asset_ids: sheetIds, kind };
